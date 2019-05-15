@@ -10,6 +10,24 @@ NTT の宅内用光ルータ (PR-400KI) に wget でアクセスし，直近の�
 cron に登録しておけば，新規の発着信があったときに IFTTT から通知が届くようになります。
 
 ## 設定
+### IFTTT の設定
+IFTTT でアプレットを作成します。LINE でメッセージを受け取る場合は以下のようにします。
+1. if this then that の 'this' をクリック
+1. Choose a service で 'Webhooks' を選択
+1. Choose trigger で 'Receive a web request' を選択
+    - Event Name に Phone Call と入力し，'Create trigger' をクリック
+1. if this then that の 'that' をクリック
+1. 'LINE' を選択
+1. Choose action で 'Send message' を選択
+    - Recipient で '1:1でLINE Notifyから通知を受け取る' または送りたいグループを選択
+    - Message には次のように入力
+    ```
+    日時: {{Value1}}<br>
+    通話時間: {{Value2}}<br>
+    備考: {{Value3}}
+    ```
+    - 'Create action' をクリック
+### スクリプトの設定
 光ルータの IP アドレスを設定します。
 ```
 URL="http://192.168.0.1/cgi-bin/mainte.cgi?st_clog"
