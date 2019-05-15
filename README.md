@@ -18,7 +18,12 @@ URL="http://192.168.0.1/cgi-bin/mainte.cgi?st_clog"
 ```
 OPTS="--http-user=user --http-password=password --auth-no-challenge"
 ```
-IFTTT で Webhook アプリを作成し，その秘密鍵の文字列を設定します。
+IFTTT で Webhook アプリを作成し，イベント名を「Phone Call」とし，スクリプトの設定と合わせておきます。
+```
+EVENT='Phone Call'
+```
+
+その秘密鍵の文字列を設定します。
 ```
 SECRET_KEY='your_secret_key_for_ifttt'
 ```
@@ -38,6 +43,7 @@ $ cat checkcall.log
 ```
 
 ## crontab への登録
+スクリプトを /path/to/checkcall/checkcall.sh に設置したときは，crontab に次のように登録すれば 30 秒毎に発着信のチェックが行われます。
 ```
 * * * * * cd /path/to/checkcall; for i in `seq 0 30 59`; do (sleep ${i}; bash checkcall.sh) & done;
 ```
