@@ -1,7 +1,7 @@
 # checkcall
 Get information on outgoing and incoming call by checking NTT optical router 
 
-NTT の宅内用光ルータにアクセスし，直近の通話ログをローカルファイルに書き出す Bash スクリプトです。
+NTT の宅内用光ルータにアクセスし，直近の通話ログをローカルファイルに書き出す Bourne shell スクリプトです。
 
 ## 動作概要
 NTT の宅内用光ルータ (PR-400KI) に wget でアクセスし，直近の通話ログを取得します。
@@ -34,7 +34,7 @@ URL="http://192.168.0.1/cgi-bin/mainte.cgi?st_clog"
 ```
 光ルータにアクセスする場合のユーザとパスワードをそれぞれ設定します。
 ```
-OPTS="--http-user=user --http-password=password --auth-no-challenge"
+OPTS="--http-user=user --http-password=password --auth-no-challenge -q --tries=1 --timeout=10"
 ```
 IFTTT で Webhook アプリを作成し，イベント名を「Phone Call」とし，スクリプトの設定と合わせておきます。
 ```
@@ -63,5 +63,5 @@ $ cat checkcall.log
 ## crontab への登録
 スクリプトを /path/to/checkcall/checkcall.sh に設置したときは，crontab に次のように登録すれば 30 秒毎に発着信のチェックが行われます。
 ```
-* * * * * cd /path/to/checkcall; for i in `seq 0 30 59`; do (sleep ${i}; bash checkcall.sh) & done;
+* * * * * cd /path/to/checkcall; for i in `seq 0 30 59`; do (sleep ${i}; sh checkcall.sh) & done;
 ```
