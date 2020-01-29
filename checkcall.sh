@@ -9,7 +9,8 @@ EVENT='Phone Call'
 SECRET_KEY='your_secret_key_for_ifttt'
 
 if [ "$CURRENTSTAT" = "" ]; then
-  CURRENTSTAT="`LC_TIME=C date` Connection timed out."
+  echo "`LC_TIME=C date` Connection timed out." >&2
+  exit 1
 fi
 
 if [ "$PREVIOUSSTAT" != "$CURRENTSTAT" ]; then
