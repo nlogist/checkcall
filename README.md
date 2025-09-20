@@ -1,10 +1,10 @@
 # checkcall
-Get information on outgoing and incoming call by checking NTT optical router 
+Get information on outgoing and incoming call by checking NTT optical router (PR-400KI, PR-500KI)
 
 NTT の宅内用光ルータにアクセスし，直近の通話ログをローカルファイルに書き出す Bourne shell スクリプトです。
 
 ## 動作概要
-NTT の宅内用光ルータ (PR-400KI) に wget でアクセスし，直近の通話ログを取得します。
+NTT の宅内用光ルータに wget でアクセスし，直近の通話ログを取得します。
 ローカルのログファイルと比較し，違いがあれば新しい着信または発信があったとして IFTTT の Webhook に通知し，ローカルのログファイルに追加します。
 違いがなければ何もせずに終了します。
 cron に登録しておけば，新規の発着信があったときに IFTTT から通知が届くようになります。

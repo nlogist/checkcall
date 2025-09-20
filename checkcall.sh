@@ -1,11 +1,13 @@
 #!/bin/sh
 
-URL="http://192.168.0.1/cgi-bin/mainte.cgi?st_clog"
+# URL="http://192.168.0.1/cgi-bin/mainte.cgi?st_clog" # PR-400KI
+URL="http://192.168.0.1/ntt/information/callHistory" # PR-500KI
 OPTS="--http-user=user --http-password=password --auth-no-challenge -q --tries=1 --timeout=10"
 LOGFILE=checkcall.log
 PREVIOUSSTAT=`tail -n 1 $LOGFILE`
-CURRENTSTAT=`wget -O - $OPTS $URL 2>&1 | sed -n '/CALL.LOG/,\$p' | sed -n 3,8p | iconv -f SJIS | perl -pe 's/\n/<br>/g; s/\s+/ /g'`
-EVENT='Phone Call'
+# CURRENTSTAT=`wget -O - $OPTS $URL 2>&1 | sed -n '/CALL.LOG/,\$p' | sed -n 3,8p | iconv -c -f SJIS | perl -pe 's/\n/<br>/g; s/\s+/ /g'` # PR-400KI: Character code: Shift-JIS
+CURRENTSTAT=`wget -O - $OPTS $URL 2>&1 | sed -n '/CALL.LOG/,\$p' | sed -n 3,8p | perl -pe 's/\n/<br>/g; s/\s+/ /g'` # PR-500KI: Character code: UTF-8
+EVENT='Event name on IFTTT'
 SECRET_KEY='your_secret_key_for_ifttt'
 
 if [ "$CURRENTSTAT" = "" ]; then
